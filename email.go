@@ -51,6 +51,15 @@ type Email struct {
 	Headers     textproto.MIMEHeader
 	Attachments []*Attachment
 	ReadReceipt []string
+	HTMLRelated []*HasIdPart // Related parts for HTML email (optional)
+}
+
+// HasIdPart is a struct that holds the content of an email part that has an ID
+type HasIdPart struct {
+	ContentID   string
+	ContentType string
+	Encoding    string
+	Content     []byte
 }
 
 // part is a copyable representation of a multipart.Part
@@ -173,6 +182,18 @@ func NewEmailFromReader(r io.Reader) (*Email, error) {
 				}
 				continue
 			}
+		}
+		// Check if the part is inline HTML based on the presence of the Content-ID header
+		if cid := p.header.Get("Content-ID"); cid != "" {
+			cid = strings.Trim(cid, "<>") // trim <>
+			encoding := p.header.Get("Content-Transfer-Encoding")
+			ep := &HasIdPart{
+				ContentID:   cid,
+				ContentType: ct,
+				Encoding:    encoding,
+				Content:     p.body,
+			}
+			e.HTMLRelated = append(e.HTMLRelated, ep)
 		}
 		switch {
 		case ct == "text/plain":

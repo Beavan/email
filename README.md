@@ -1,12 +1,10 @@
 email
 =====
 
-[![Build Status](https://travis-ci.org/jordan-wright/email.png?branch=master)](https://travis-ci.org/jordan-wright/email) [![GoDoc](https://godoc.org/github.com/jordan-wright/email?status.svg)](https://godoc.org/github.com/jordan-wright/email)
-
-Robust and flexible email library for Go
+Robust and flexible email library for Go, forked from jordan-wright/email
 
 ### Email for humans
-The ```email``` package is designed to be simple to use, but flexible enough so as not to be restrictive. The goal is to provide an *email interface for humans*.
+The ```email``` package is designed to be simple to use, but flexible enough so as not to be restrictive.
 
 The ```email``` package currently supports the following:
 *  From, To, Bcc, and Cc fields
@@ -18,11 +16,7 @@ The ```email``` package currently supports the following:
 *  More to come!
 
 ### Installation
-```go get github.com/jordan-wright/email```
-
-*Note: Version > 1 of this library requires Go v1.5 or above.*
-
-*If you need compatibility with previous Go versions, you can use the previous package at gopkg.in/jordan-wright/email.v1*
+```go get github.com/beavan/email```
 
 ### Examples
 #### Sending email using Gmail
